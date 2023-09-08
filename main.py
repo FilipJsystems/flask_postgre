@@ -4,22 +4,55 @@
 
 from flask import Flask, render_template, request
 import jinja2
+import psycopg2
 
 app = Flask(__name__)
+
+
+def connect_to_db():
+    """Create and return a connection to the database."""
+    try:
+        conn = psycopg2.connect(
+            dbname="my_db",
+            user="postgres",
+            password="jsystems",
+            host="localhost",
+            port="5432"
+        )
+        return conn
+    except Exception as e:
+        print("Error connecting to database:", e)
+        return None
+
+def oblicz_bmi():
+    # tutaj wasz kod
+    pass
 
 @app.route('/')   # GET jest domyslna metoda
 def index():
     names = ['Filip', 'Marcin', 'Maciek', 'Krzysiek', 'Piotrek', 'Marcin', 'Andrzej']
-    return render_template('index.html', details=names)
+    return render_template('index.html', names_list=names)
+
 
 @app.route('/details',  methods=['POST'])
 def details():
-    selected_name = request.form['name']  # tak odczytujemy request za pomocą metody post - to da nam wybrane imie z formularza w index.html
+    #selected_name = request.form['name']
     names = ['Filip', 'Marcin', 'Maciek', 'Krzysiek', 'Piotrek', 'Marcin', 'Andrzej']
     dic ={}
     for i, el in enumerate(names):
         dic[el] = i+1
     return render_template('details.html', details=dic)
+
+
+
+@app.route('/add', methods=['GET', 'POST'])
+def add_user():
+    if request.method == 'POST':
+        imie = request.form['name']
+        # inne dane do pobrania analogicznie
+        # reszta kodu
+    return render_template('add.html')
+
 
 
 # Press the green button in the gutter to run the script.

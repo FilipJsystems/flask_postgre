@@ -2,17 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Hello {{ details }}</title>
+    <title>Hello Team!</title>
 </head>
 <body>
 
 Hello Team!
 
-
-
 <form action="/details" method="post">
     <select name="name">
-        {% for name in details %}
+        {% for name in names_list %}
             <option value="{{ name }}">{{ name }}</option>
         {% endfor %}
     </select>
@@ -20,10 +18,13 @@ Hello Team!
 </form>
 
 <div>
-{% for name in details %}
-        <li><a> Hello {{ name }}</a></li>
+{% for name in names_list %}
+        <li>Hello {{ name }}</li>
 {% endfor %}
 </div>
+
+
+<a href="{{ url_for('add_user') }}"><button>Dodaj nową osobę</button></a>
 
 </body>
 </html>
