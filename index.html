@@ -17,6 +17,15 @@ Hello Team!
     <input type="submit" value="Show Details">
 </form>
 
+<form action="/details2" method="post">
+    <select name="name">
+        {% for name in names_list %}
+            <option value="{{ name }}">{{ name }}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Show Details">
+</form>
+
 <div>
 {% for name in names_list %}
         <li>Hello {{ name }}</li>

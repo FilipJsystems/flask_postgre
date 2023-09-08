@@ -13,7 +13,7 @@ def connect_to_db():
     """Create and return a connection to the database."""
     try:
         conn = psycopg2.connect(
-            dbname="my_db",
+            dbname="new_db",
             user="postgres",
             password="jsystems",
             host="localhost",
@@ -52,6 +52,21 @@ def details():
         dic[el] = i+1
     index = dic.get(selected_name, "Name not found")
     return render_template('details.html', details=index)
+
+
+@app.route('/details2',  methods=['POST'])
+def get_data():
+    pass
+    #  selected_name = request.form['name']
+    #  conn = connect_to_db()
+    # cursor = conn.cursor()
+    # wynik = cursor.execute( ... selected_name ...)
+    # conn.commit()
+    # cursor.close()
+    # conn.close()
+    # bmi = oblicz_bmi(wynik)
+    # return render_template('details2.html', details=index)
+
 
 @app.route('/add', methods=['GET', 'POST'])
 def add_user():
