@@ -14,6 +14,7 @@ def index():
 
 @app.route('/details',  methods=['POST'])
 def details():
+    selected_name = request.form['name']  # tak odczytujemy request za pomocą metody post - to da nam wybrane imie z formularza w index.html
     names = ['Filip', 'Marcin', 'Maciek', 'Krzysiek', 'Piotrek', 'Marcin', 'Andrzej']
     dic ={}
     for i, el in enumerate(names):
