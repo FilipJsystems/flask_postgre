@@ -34,16 +34,24 @@ def index():
     return render_template('index.html', names_list=names)
 
 
+# @app.route('/details',  methods=['POST'])
+# def details():
+#     #selected_name = request.form['name']
+#     names = ['Filip', 'Marcin', 'Maciek', 'Krzysiek', 'Piotrek', 'Marcin', 'Andrzej']
+#     dic ={}
+#     for i, el in enumerate(names):
+#         dic[el] = i+1
+#     return render_template('details.html', details=dic)
+
 @app.route('/details',  methods=['POST'])
 def details():
-    #selected_name = request.form['name']
+    selected_name = request.form['name']
     names = ['Filip', 'Marcin', 'Maciek', 'Krzysiek', 'Piotrek', 'Marcin', 'Andrzej']
-    dic ={}
+    dic = {}
     for i, el in enumerate(names):
         dic[el] = i+1
-    return render_template('details.html', details=dic)
-
-
+    index = dic.get(selected_name, "Name not found")
+    return render_template('details.html', details=index)
 
 @app.route('/add', methods=['GET', 'POST'])
 def add_user():
