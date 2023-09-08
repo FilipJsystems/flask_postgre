@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello {{ details }}</title>
+</head>
+<body>
+
+Hello Team!
+
+<select name="name">
+    {% for name in details %}
+        <option value="{{ name }}">{{ name }}</option>
+    {% endfor %}
+</select>
+
+<div>
+{% for name in details %}
+        <li><a> Hello {{ name }}</a></li>
+{% endfor %}
+</div>
+
+</body>
+</html>
