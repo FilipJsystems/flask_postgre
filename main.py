@@ -2,7 +2,7 @@
 # pip install psycopg2
 # pip install psycopg2-binary
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 import jinja2
 import psycopg2
 
@@ -33,7 +33,12 @@ def oblicz_bmi(waga, wzrost):
 
 @app.route('/')   # GET jest domyslna metoda
 def index():
-    names = ['Filip', 'Marcin', 'Maciek', 'Krzysiek', 'Piotrek', 'Marcin', 'Andrzej']
+    conn = connect_to_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT name FROM users")
+    ##names = cursor.fetchall()
+    names = [row[0] for row in cursor.fetchall()]
+    #names = ['Filip', 'Marcin', 'Maciek', 'Krzysiek', 'Piotrek', 'Marcin', 'Andrzej']
     return render_template('index.html', names_list=names)
 
 
@@ -59,8 +64,8 @@ def details():
 
 @app.route('/details2',  methods=['POST'])
 def get_data():
-    selected_name = request.form['name']
     conn = connect_to_db()
+    selected_name = request.form['name']
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM users WHERE name=%s", (selected_name,))
     user_details = cursor.fetchone()
@@ -72,12 +77,29 @@ def get_data():
     return render_template('details2.html', details=user_details, bmi=bmi)
 
 
+# @app.route('/add', methods=['GET', 'POST'])
+# def add_user():
+#     if request.method == 'POST':
+#         imie = request.form['name']
+#         # inne dane do pobrania analogicznie
+#         # reszta kodu
+#     return render_template('add.html')
+
 @app.route('/add', methods=['GET', 'POST'])
 def add_user():
     if request.method == 'POST':
         imie = request.form['name']
-        # inne dane do pobrania analogicznie
-        # reszta kodu
+        wzrost = int(request.form['height'])
+        waga = int(request.form['weight'])
+        wiek = int(request.form['age'])
+
+        conn = connect_to_db()
+        cursor = conn.cursor()
+        cursor.execute("INSERT INTO users (name, height, weight, age) VALUES (%s, %s, %s, %s)",
+                       (imie, wzrost, waga, wiek))
+        conn.commit()
+        conn.close()
+        return redirect(url_for('index'))
     return render_template('add.html')
 
 
