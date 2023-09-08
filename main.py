@@ -9,17 +9,16 @@ app = Flask(__name__)
 
 @app.route('/')   # GET jest domyslna metoda
 def index():
-    try:
-        print(1/0)
-    except:
-        print('nie udalo sie podzielic')
-    return render_template('index.html')
-
-@app.route('/details')   #, methods=['POST'])
-def details():
     names = ['Filip', 'Marcin', 'Maciek', 'Krzysiek', 'Piotrek', 'Marcin', 'Andrzej']
     return render_template('index.html', details=names)
 
+@app.route('/details',  methods=['POST'])
+def details():
+    names = ['Filip', 'Marcin', 'Maciek', 'Krzysiek', 'Piotrek', 'Marcin', 'Andrzej']
+    dic ={}
+    for i, el in enumerate(names):
+        dic[el] = i+1
+    return render_template('details.html', details=dic)
 
 
 # Press the green button in the gutter to run the script.
