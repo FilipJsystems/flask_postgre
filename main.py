@@ -24,9 +24,12 @@ def connect_to_db():
         print("Error connecting to database:", e)
         return None
 
-def oblicz_bmi():
-    # tutaj wasz kod
-    pass
+def oblicz_bmi(waga, wzrost):
+    try:
+        bmi = waga / ((wzrost / 100) ** 2)
+        return round(bmi, 2)
+    except:
+        return -1
 
 @app.route('/')   # GET jest domyslna metoda
 def index():
@@ -56,16 +59,17 @@ def details():
 
 @app.route('/details2',  methods=['POST'])
 def get_data():
-    pass
-    #  selected_name = request.form['name']
-    #  conn = connect_to_db()
-    # cursor = conn.cursor()
-    # wynik = cursor.execute( ... selected_name ...)
-    # conn.commit()
-    # cursor.close()
-    # conn.close()
-    # bmi = oblicz_bmi(wynik)
-    # return render_template('details2.html', details=index)
+    selected_name = request.form['name']
+    conn = connect_to_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM users WHERE name=%s", (selected_name,))
+    user_details = cursor.fetchone()
+    cursor.close()
+    conn.close()
+    if user_details:
+        id, name, wzrost, waga, wiek = user_details
+        bmi = oblicz_bmi(waga, wzrost)
+    return render_template('details2.html', details=user_details, bmi=bmi)
 
 
 @app.route('/add', methods=['GET', 'POST'])
