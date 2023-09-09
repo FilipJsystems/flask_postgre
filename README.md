@@ -1,3 +1,7 @@
+## Update: materiały z ostatnich tematów wraz z komentarzami i przykładami pojawią się w ten weekend (dziś i jutro) - ostatni commit pojawi się nie później niż w niedziele o północy
+
+
+
 # flask_postgre
 
 ## Uwaga do zadań - templaty html będą podane - chodzi o to, żeby dostosować funkcje w pythonie
@@ -8,4 +12,4 @@
 
 ### 3 Zadanie: Stworz funkcje liczaca BMI dla danego uzytkownika. wybór dropdownu powinien wyświetlać informacje na temat danej osoby: id, wzrost, waga, wiek, imie i obliczone bmi w tabelce
 
-### 4 Zadanie: Stwórz możiwość dodania nowego elementu za pomocą formularza przyjmującego: wzrost, wage, wiek, imie. To powinno dodawać elementy do bazy danych.
+### 4 Zadanie: Stwórz możiwość dodania nowego elementu za pomocą formularza przyjmującego: wzrost, wage, wiek, imie. To powinno dodawać elementy do bazy danych
